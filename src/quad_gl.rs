@@ -1036,7 +1036,7 @@ impl QuadGl {
     }
 }
 
-mod shader {
+pub mod shader {
     use miniquad::{ShaderMeta, UniformBlockLayout, UniformDesc, UniformType};
 
     pub const VERTEX: &str = r#"#version 100

@@ -44,7 +44,7 @@ use std::panic::AssertUnwindSafe;
 use std::pin::Pin;
 
 mod exec;
-mod quad_gl;
+pub mod quad_gl;
 mod tobytes;
 
 pub mod audio;
