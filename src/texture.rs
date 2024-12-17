@@ -336,7 +336,7 @@ pub async fn load_image(path: &str) -> Result<Image, Error> {
 pub async fn load_texture(path: &str) -> Result<Texture2D, Error> {
     let bytes = load_file(path).await?;
 
-    Ok(Texture2D::from_file_with_format(&bytes[..], None))
+    Texture2D::from_file_with_format(&bytes[..], None)
 }
 
 #[derive(Debug, Clone)]
@@ -685,21 +685,20 @@ impl Texture2D {
     ///     );
     /// # }
     /// ```
-    pub fn from_file_with_format(bytes: &[u8], format: Option<image::ImageFormat>) -> Texture2D {
+    pub fn from_file_with_format(
+        bytes: &[u8],
+        format: Option<image::ImageFormat>,
+    ) -> Result<Texture2D, Error> {
         let img = if let Some(fmt) = format {
-            image::load_from_memory_with_format(bytes, fmt)
-                .unwrap_or_else(|e| panic!("{}", e))
-                .to_rgba8()
+            image::load_from_memory_with_format(bytes, fmt)?.to_rgba8()
         } else {
-            image::load_from_memory(bytes)
-                .unwrap_or_else(|e| panic!("{}", e))
-                .to_rgba8()
+            image::load_from_memory(bytes)?.to_rgba8()
         };
         let width = img.width() as u16;
         let height = img.height() as u16;
         let bytes = img.into_raw();
 
-        Self::from_rgba8(width, height, &bytes)
+        Ok(Self::from_rgba8(width, height, &bytes))
     }
 
     /// Creates a Texture2D from an [Image].
