@@ -15,7 +15,7 @@ license = "MIT OR Apache-2.0"
 audio = ["quad-snd"]
 log-rs = ["log"]
 glam-serde = ["glam/serde"]
-default = []
+default = ["audio"]
 
 [package.metadata.android]
 assets = "examples/"
@@ -35,7 +35,7 @@ macroquad_macro = { version = "0.1.8", path = "macroquad_macro" }
 fontdue = "0.9"
 backtrace = { version = "0.3.60", optional = true, default-features = false, features = [ "std", "libbacktrace" ] }
 log = { version = "0.4", optional = true }
-quad-snd = { version = "0.2", optional = true }
+quad-snd = { git = "https://github.com/InZan17/quad-snd", branch="ball-in-a-box", optional = true }
 
 [dev-dependencies]
 macroquad-particles = { path = "./particles" }

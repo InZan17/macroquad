@@ -7,6 +7,8 @@ pub enum Error {
     },
     ShaderError(miniquad::ShaderError),
     ImageError(image::ImageError),
+    #[cfg(feature = "audio")]
+    AudioError(quad_snd::Error),
     UnknownError(&'static str),
 }
 
@@ -25,6 +27,13 @@ impl From<miniquad::ShaderError> for Error {
 impl From<image::ImageError> for Error {
     fn from(s: image::ImageError) -> Self {
         Error::ImageError(s)
+    }
+}
+
+#[cfg(feature = "audio")]
+impl From<quad_snd::Error> for Error {
+    fn from(s: quad_snd::Error) -> Self {
+        Error::AudioError(s)
     }
 }
 

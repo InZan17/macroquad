@@ -118,7 +118,7 @@ pub async fn load_sound(path: &str) -> Result<Sound, Error> {
 pub async fn load_sound_from_bytes(data: &[u8]) -> Result<Sound, Error> {
     let sound = {
         let ctx = &mut get_context().audio_context;
-        QuadSndSound::load(&mut ctx.native_ctx, data)
+        QuadSndSound::load(&mut ctx.native_ctx, data)?
     };
 
     // only on wasm the sound is not ready right away
